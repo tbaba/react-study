@@ -1,10 +1,13 @@
-var gulp = require('gulp'),
-  browserify = require('browserify'),
-  webserver = require('gulp-webserver'),
-  source = require('vinyl-source-stream');
+var gulp       = require('gulp'),
+    browserify = require('browserify'),
+    webserver  = require('gulp-webserver'),
+    source     = require('vinyl-source-stream'),
+    babelify   = require('babelify');
+
 
 gulp.task('browserify', function() {
   browserify('./js/app.js', { debug: true }).
+    transform(babelify, {presets: ["es2015"]}).
     bundle().
     pipe(source('bundle.js')).
     pipe(gulp.dest('./'));
